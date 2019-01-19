@@ -6,4 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".RegisterActivity">
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="18dp"
+        android:text="Register Page"
+        tools:layout_editor_absoluteX="149dp"
+        tools:layout_editor_absoluteY="48dp" />
 </android.support.constraint.ConstraintLayout>
