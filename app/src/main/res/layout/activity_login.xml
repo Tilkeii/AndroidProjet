@@ -13,8 +13,10 @@
         android:background="@color/colorPrimaryCustom"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
+        app:layout_constraintTop_toTopOf="parent"
         app:title="Projet Android"
-        app:titleTextColor="@android:color/white"/>
+        app:titleTextColor="@android:color/white"
+        tools:layout_editor_absoluteX="0dp" />
 
     <EditText
         android:id="@+id/emailEditText"
