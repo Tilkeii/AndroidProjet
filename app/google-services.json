@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "270259437262-s1p08n4fae58tke1m4qjh1m1tcjd33k9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.flo.projetandroid",
+            "certificate_hash": "efe9429e4f2ee1b7c8142fa056df49372abe2e78"
+          }
+        },
+        {
           "client_id": "270259437262-uq4k3qjdt9ba884ii0569b72eibf4nj1.apps.googleusercontent.com",
           "client_type": 3
         }
