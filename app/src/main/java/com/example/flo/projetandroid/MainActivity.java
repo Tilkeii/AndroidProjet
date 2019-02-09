@@ -10,6 +10,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity implements
         BottomNavigationView.OnNavigationItemSelectedListener,
@@ -57,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements
                 getSupportActionBar().setTitle("Home");
                 return true;
             case R.id.navigation_dashboard:
-                MyEventsFragment myEventsFragment = MyEventsFragment.newInstance("test", "test");
+                MyEventsFragment myEventsFragment = MyEventsFragment.newInstance();
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.fragment_container, myEventsFragment)
@@ -66,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements
                 getSupportActionBar().setTitle("Dashboard");
                 return true;
             case R.id.navigation_parametres:
-                ParametresFragment parametresFragment = ParametresFragment.newInstance("test", "test");
+                ParametresFragment parametresFragment = ParametresFragment.newInstance();
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.fragment_container, parametresFragment)

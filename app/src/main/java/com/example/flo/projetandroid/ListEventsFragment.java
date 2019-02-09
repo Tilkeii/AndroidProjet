@@ -11,19 +11,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.firebase.ui.firestore.paging.FirestorePagingAdapter;
 import com.firebase.ui.firestore.paging.FirestorePagingOptions;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
 public class ListEventsFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
-    private FirestorePagingAdapter<Event, EventViewHolder> mAdapter;
+    private FirestorePagingAdapter mAdapter;
     private FirebaseFirestore mFirebaseFirestore;
 
     public ListEventsFragment() {
@@ -32,28 +29,6 @@ public class ListEventsFragment extends Fragment {
 
     public static ListEventsFragment newInstance() {
         return new ListEventsFragment();
-    }
-
-    public class EventViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
-        TextView titre, sport, lieu, date;
-
-        public EventViewHolder(@NonNull View itemView) {
-            super(itemView);
-
-            titre = itemView.findViewById(R.id.titreRecyclerView);
-            sport = itemView.findViewById(R.id.sportRecyclerView);
-            lieu = itemView.findViewById(R.id.lieuRecyclerView);
-            date = itemView.findViewById(R.id.dateRecyclerView);
-
-            itemView.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View v) {
-            Event event = mAdapter.getCurrentList().get(getAdapterPosition()).toObject(Event.class);
-            Toast.makeText(getContext(), "OnClick on position : " + getAdapterPosition() + " \nTest : " + event.getTitre(), Toast.LENGTH_LONG).show();
-        }
     }
 
     @Override
@@ -74,31 +49,14 @@ public class ListEventsFragment extends Fragment {
                 .setQuery(query, config, Event.class)
                 .build();
 
-        mAdapter = new FirestorePagingAdapter<Event, EventViewHolder>(options) {
-
-            @NonNull
-            @Override
-            public EventViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-                View view = LayoutInflater.from(getContext()).inflate(R.layout.recyclerview_card_row, viewGroup, false);
-                return new EventViewHolder(view);
-            }
-
-            @Override
-            protected void onBindViewHolder(@NonNull EventViewHolder holder, int position, @NonNull Event model) {
-                holder.titre.setText(model.getTitre());
-                holder.sport.setText(model.getSport());
-                holder.lieu.setText(model.getLieu());
-                holder.date.setText(model.getDate().toDate().toString());
-            }
-        };
+        mAdapter = new EventFirestorePagingAdapter(options, getContext());
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_list_events, container, false);
-
 
         RecyclerView mRecyclerView = view.findViewById(R.id.recyclerViewListEvent);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getContext());
@@ -138,7 +96,6 @@ public class ListEventsFragment extends Fragment {
     }
 
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 }
