@@ -8,9 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.firebase.ui.firestore.paging.FirestorePagingAdapter;
 import com.firebase.ui.firestore.paging.FirestorePagingOptions;
+import com.google.firebase.firestore.DocumentSnapshot;
 
 public class EventFirestorePagingAdapter extends FirestorePagingAdapter<Event, EventFirestorePagingAdapter.EventViewHolder> {
 
@@ -38,8 +38,9 @@ public class EventFirestorePagingAdapter extends FirestorePagingAdapter<Event, E
 
         @Override
         public void onClick(View v) {
-            Event event = getCurrentList().get(getAdapterPosition()).toObject(Event.class);
-            Toast.makeText(mContext, "OnClick on position : " + getAdapterPosition() + " \nTest : " + event.getTitre(), Toast.LENGTH_LONG).show();
+            DocumentSnapshot documentSnapshot = getCurrentList().get(getAdapterPosition());
+            Event event = documentSnapshot.toObject(Event.class);
+            Toast.makeText(mContext, "OnClick on position : " + getAdapterPosition() + " \nTest : " + event.getTitre() + "\nId : " + documentSnapshot.getId(), Toast.LENGTH_LONG).show();
         }
     }
 

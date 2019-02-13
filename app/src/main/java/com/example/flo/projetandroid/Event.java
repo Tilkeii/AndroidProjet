@@ -5,7 +5,6 @@ import com.google.firebase.Timestamp;
 import java.time.LocalDateTime;
 
 public class Event {
-
     private String titre;
     private String sport;
     private String lieu;
@@ -13,6 +12,14 @@ public class Event {
     private Timestamp dateLimit;
 
     public Event(){ } // Needed for Firebase
+
+    public Event(String id, String titre, String sport, String lieu, Timestamp date, Timestamp dateLimit) {
+        this.titre = titre;
+        this.sport = sport;
+        this.lieu = lieu;
+        this.date = date;
+        this.dateLimit = dateLimit;
+    }
 
     public String getTitre() {
         return titre;
@@ -57,7 +64,7 @@ public class Event {
     @Override
     public String toString() {
         return "Event{" +
-                "titre='" + titre + '\'' +
+                ", titre='" + titre + '\'' +
                 ", sport='" + sport + '\'' +
                 ", lieu='" + lieu + '\'' +
                 ", date=" + date +

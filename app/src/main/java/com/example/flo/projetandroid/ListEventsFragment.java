@@ -8,12 +8,16 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.firebase.ui.firestore.SnapshotParser;
 import com.firebase.ui.firestore.paging.FirestorePagingAdapter;
 import com.firebase.ui.firestore.paging.FirestorePagingOptions;
+import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
@@ -46,7 +50,21 @@ public class ListEventsFragment extends Fragment {
 
         FirestorePagingOptions<Event> options = new FirestorePagingOptions.Builder<Event>()
                 .setLifecycleOwner(this)
-                .setQuery(query, config, Event.class)
+                .setQuery(query, config, new SnapshotParser<Event>() {
+                    @NonNull
+                    @Override
+                    public Event parseSnapshot(@NonNull DocumentSnapshot snapshot) {
+                        Event evt = new Event(
+                                snapshot.getId(),
+                                snapshot.getString("titre"),
+                                snapshot.getString("sport"),
+                                snapshot.getString("lieu"),
+                                snapshot.get("date", Timestamp.class),
+                                snapshot.get("dateLimit", Timestamp.class));
+                        Log.i("TEST", evt.toString());
+                        return evt;
+                    }
+                })
                 .build();
 
         mAdapter = new EventFirestorePagingAdapter(options, getContext());
@@ -57,7 +75,6 @@ public class ListEventsFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_list_events, container, false);
-
         RecyclerView mRecyclerView = view.findViewById(R.id.recyclerViewListEvent);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
