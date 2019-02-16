@@ -28,7 +28,7 @@ public class EventFirestorePagingAdapter extends FirestorePagingAdapter<Event, E
 
     public class EventViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        TextView titre, sport, lieu, date;
+        TextView titre, sport, lieu, date, dateLimite;
 
         public EventViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -37,6 +37,7 @@ public class EventFirestorePagingAdapter extends FirestorePagingAdapter<Event, E
             sport = itemView.findViewById(R.id.sportRecyclerView);
             lieu = itemView.findViewById(R.id.lieuRecyclerView);
             date = itemView.findViewById(R.id.dateRecyclerView);
+            dateLimite = itemView.findViewById(R.id.dateLimiteRecyclerView);
 
             itemView.setOnClickListener(this);
         }
@@ -44,8 +45,13 @@ public class EventFirestorePagingAdapter extends FirestorePagingAdapter<Event, E
         @Override
         public void onClick(View v) {
             DocumentSnapshot documentSnapshot = getCurrentList().get(getAdapterPosition());
-            //Event event = documentSnapshot.toObject(Event.class);
-            //Toast.makeText(mContext, "OnClick on position : " + getAdapterPosition() + " \nTest : " + event.getTitre() + "\nId : " + documentSnapshot.getId(), Toast.LENGTH_LONG).show();
+            Event event = documentSnapshot.toObject(Event.class);
+            Integer userSize = event.getUsers() == null ? 0 : event.getUsers().size();
+            Toast.makeText(mContext, "OnClick on position : " + getAdapterPosition() +
+                    "\nTest : " + event.getTitre() +
+                    "\nId : " + documentSnapshot.getId() +
+                    "\nUsers size : " + userSize,
+                    Toast.LENGTH_LONG).show();
             if(mFragment instanceof SwitchDocumentActivity){
                 ((SwitchDocumentActivity) mFragment).goToActivity(documentSnapshot);
             }
@@ -58,6 +64,7 @@ public class EventFirestorePagingAdapter extends FirestorePagingAdapter<Event, E
         holder.sport.setText(model.getSport());
         holder.lieu.setText(model.getLieu());
         holder.date.setText(model.getDate().toString());
+        holder.dateLimite.setText(model.getDateLimite().toString());
     }
 
     @NonNull

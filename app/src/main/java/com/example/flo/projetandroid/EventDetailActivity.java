@@ -10,18 +10,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class EventDetailActivity extends AppCompatActivity implements View.OnClickListener, OnCompleteListener {
+public class EventDetailActivity extends AppCompatActivity implements View.OnClickListener {
 
     TextView mLieu, mSport, mTitre, mDate, mDateLimite;
     Button mRejoindre;
     Event mEvent;
     String mIdDocument;
     FirebaseFirestore mFirebaseFirestore;
+    Boolean mUserIsInEvent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,22 +47,50 @@ public class EventDetailActivity extends AppCompatActivity implements View.OnCli
         mDate.setText(mEvent.getDate().toString());
         mDateLimite.setText(mEvent.getDateLimite().toString());
 
+        mUserIsInEvent = mEvent.getUsers() == null ? false : mEvent.getUsers().contains(FirebaseAuth.getInstance().getUid());
+
+        if(mUserIsInEvent) {
+            mRejoindre.setText("Quitter");
+        } else {
+            mRejoindre.setText("Rejoindre");
+        }
+
         mRejoindre.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        mFirebaseFirestore.collection("events").document(mIdDocument).update("users", FieldValue.arrayUnion(FirebaseAuth.getInstance().getUid()))
-                .addOnCompleteListener(this);
-
-    }
-
-    @Override
-    public void onComplete(@NonNull Task task) {
-        if(task.isSuccessful()){
-            Toast.makeText(this, "SUCCESS !", Toast.LENGTH_LONG).show();
-        } else {
-            Log.e("TEST", "Error update document: ", task.getException());
+        if(mUserIsInEvent){
+            mFirebaseFirestore.collection("events").document(mIdDocument).update("users", FieldValue.arrayRemove(FirebaseAuth.getInstance().getUid()))
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if(task.isSuccessful()){
+                                Toast.makeText(getApplicationContext(), "SUCCESS !", Toast.LENGTH_LONG).show();
+                                mUserIsInEvent = false;
+                                mRejoindre.setText("Rejoindre");
+                            } else {
+                                Log.e("TEST", "Error update document: ", task.getException());
+                            }
+                        }
+                    });
         }
+        else {
+            mFirebaseFirestore.collection("events").document(mIdDocument).update("users", FieldValue.arrayUnion(FirebaseAuth.getInstance().getUid()))
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if(task.isSuccessful()){
+                                Toast.makeText(getApplicationContext(), "SUCCESS !", Toast.LENGTH_LONG).show();
+                                mUserIsInEvent = true;
+                                mRejoindre.setText("Quitter");
+                            } else {
+                                Log.e("TEST", "Error update document: ", task.getException());
+                            }
+                        }
+                    });
+        }
+
     }
+
 }

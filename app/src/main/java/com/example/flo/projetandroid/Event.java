@@ -5,11 +5,13 @@ import com.google.firebase.Timestamp;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 public class Event implements Serializable {
     private String titre;
     private String sport;
     private String lieu;
+    private List<String> users;
     private Date date;
     private Date dateLimite;
 
@@ -21,6 +23,14 @@ public class Event implements Serializable {
         this.lieu = lieu;
         this.date = date;
         this.dateLimite = dateLimite;
+    }
+
+    public List<String> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<String> users) {
+        this.users = users;
     }
 
     public String getTitre() {
@@ -66,11 +76,12 @@ public class Event implements Serializable {
     @Override
     public String toString() {
         return "Event{" +
-                ", titre='" + titre + '\'' +
+                "titre='" + titre + '\'' +
                 ", sport='" + sport + '\'' +
                 ", lieu='" + lieu + '\'' +
+                ", users=" + users +
                 ", date=" + date +
-                ", dateLimit=" + dateLimite +
+                ", dateLimite=" + dateLimite +
                 '}';
     }
 }

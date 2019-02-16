@@ -75,7 +75,7 @@
         android:inputType="phone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emailProfileText" /
+        app:layout_constraintTop_toBottomOf="@+id/emailProfileText" />
 
     <Button
         android:id="@+id/backProfilButton"

@@ -26,7 +26,7 @@ import com.google.firebase.firestore.Query;
 public class ListEventsFragment extends Fragment implements SwitchDocumentActivity{
 
     private OnFragmentInteractionListener mListener;
-    private FirestorePagingAdapter mAdapter;
+    private EventFirestorePagingAdapter mAdapter;
     private FirebaseFirestore mFirebaseFirestore;
 
     public ListEventsFragment() {
