@@ -2,6 +2,7 @@ package com.example.flo.projetandroid;
 
 import android.arch.paging.PagedList;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.firebase.ui.firestore.paging.FirestorePagingAdapter;
 import com.firebase.ui.firestore.paging.FirestorePagingOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
@@ -35,12 +37,12 @@ public class MyEventsFragment extends Fragment {
 
         mFirebaseFirestore = FirebaseFirestore.getInstance();
 
-        Query query = mFirebaseFirestore.collection("events");
+        Query query = mFirebaseFirestore.collection("events").whereArrayContains("users", FirebaseAuth.getInstance().getUid());
 
         PagedList.Config config = new PagedList.Config.Builder()
                 .setEnablePlaceholders(false)
-                .setPrefetchDistance(10)
-                .setPageSize(20)
+                .setPrefetchDistance(5)
+                .setPageSize(10)
                 .build();
 
         FirestorePagingOptions<Event> options = new FirestorePagingOptions.Builder<Event>()
@@ -48,7 +50,7 @@ public class MyEventsFragment extends Fragment {
                 .setQuery(query, config, Event.class)
                 .build();
 
-        mAdapter = new EventFirestorePagingAdapter(options, getContext());
+        mAdapter = new EventFirestorePagingAdapter(options, getContext(), this);
     }
 
     @Override

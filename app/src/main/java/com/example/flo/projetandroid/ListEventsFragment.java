@@ -2,6 +2,7 @@ package com.example.flo.projetandroid;
 
 import android.arch.paging.PagedList;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.firebase.ui.firestore.SnapshotParser;
 import com.firebase.ui.firestore.paging.FirestorePagingAdapter;
@@ -21,7 +23,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
-public class ListEventsFragment extends Fragment {
+public class ListEventsFragment extends Fragment implements SwitchDocumentActivity{
 
     private OnFragmentInteractionListener mListener;
     private FirestorePagingAdapter mAdapter;
@@ -44,30 +46,16 @@ public class ListEventsFragment extends Fragment {
 
         PagedList.Config config = new PagedList.Config.Builder()
                 .setEnablePlaceholders(false)
-                .setPrefetchDistance(10)
-                .setPageSize(20)
+                .setPrefetchDistance(5)
+                .setPageSize(10)
                 .build();
 
         FirestorePagingOptions<Event> options = new FirestorePagingOptions.Builder<Event>()
                 .setLifecycleOwner(this)
-                .setQuery(query, config, new SnapshotParser<Event>() {
-                    @NonNull
-                    @Override
-                    public Event parseSnapshot(@NonNull DocumentSnapshot snapshot) {
-                        Event evt = new Event(
-                                snapshot.getId(),
-                                snapshot.getString("titre"),
-                                snapshot.getString("sport"),
-                                snapshot.getString("lieu"),
-                                snapshot.get("date", Timestamp.class),
-                                snapshot.get("dateLimit", Timestamp.class));
-                        Log.i("TEST", evt.toString());
-                        return evt;
-                    }
-                })
+                .setQuery(query, config, Event.class)
                 .build();
 
-        mAdapter = new EventFirestorePagingAdapter(options, getContext());
+        mAdapter = new EventFirestorePagingAdapter(options, getContext(), this);
     }
 
     @Override
@@ -110,6 +98,15 @@ public class ListEventsFragment extends Fragment {
     public void onStop() {
         super.onStop();
         mAdapter.stopListening();
+    }
+
+    @Override
+    public void goToActivity(DocumentSnapshot documentSnapshot) {
+        Intent intent = new Intent(getContext(), EventDetailActivity.class);
+        Event event = documentSnapshot.toObject(Event.class);
+        intent.putExtra("event", event);
+        intent.putExtra("idDocument", documentSnapshot.getId());
+        startActivity(intent);
     }
 
     public interface OnFragmentInteractionListener {

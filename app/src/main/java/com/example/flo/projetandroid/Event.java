@@ -2,23 +2,25 @@ package com.example.flo.projetandroid;
 
 import com.google.firebase.Timestamp;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Date;
 
-public class Event {
+public class Event implements Serializable {
     private String titre;
     private String sport;
     private String lieu;
-    private Timestamp date;
-    private Timestamp dateLimit;
+    private Date date;
+    private Date dateLimite;
 
     public Event(){ } // Needed for Firebase
 
-    public Event(String id, String titre, String sport, String lieu, Timestamp date, Timestamp dateLimit) {
+    public Event(String id, String titre, String sport, String lieu, Date date, Date dateLimite) {
         this.titre = titre;
         this.sport = sport;
         this.lieu = lieu;
         this.date = date;
-        this.dateLimit = dateLimit;
+        this.dateLimite = dateLimite;
     }
 
     public String getTitre() {
@@ -45,20 +47,20 @@ public class Event {
         this.lieu = lieu;
     }
 
-    public Timestamp getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(Timestamp date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
-    public Timestamp getDateLimit() {
-        return dateLimit;
+    public Date getDateLimite() {
+        return dateLimite;
     }
 
-    public void setDateLimit(Timestamp dateLimit) {
-        this.dateLimit = dateLimit;
+    public void setDateLimite(Date dateLimite) {
+        this.dateLimite = dateLimite;
     }
 
     @Override
@@ -68,7 +70,7 @@ public class Event {
                 ", sport='" + sport + '\'' +
                 ", lieu='" + lieu + '\'' +
                 ", date=" + date +
-                ", dateLimit=" + dateLimit +
+                ", dateLimit=" + dateLimite +
                 '}';
     }
 }

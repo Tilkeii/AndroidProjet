@@ -1,7 +1,10 @@
 package com.example.flo.projetandroid;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,10 +18,12 @@ import com.google.firebase.firestore.DocumentSnapshot;
 public class EventFirestorePagingAdapter extends FirestorePagingAdapter<Event, EventFirestorePagingAdapter.EventViewHolder> {
 
     private Context mContext;
+    private Fragment mFragment;
 
-    public EventFirestorePagingAdapter(@NonNull FirestorePagingOptions<Event> options, Context context) {
+    public EventFirestorePagingAdapter(@NonNull FirestorePagingOptions<Event> options, Context context, Fragment fragment) {
         super(options);
         this.mContext = context;
+        this.mFragment = fragment;
     }
 
     public class EventViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -39,8 +44,11 @@ public class EventFirestorePagingAdapter extends FirestorePagingAdapter<Event, E
         @Override
         public void onClick(View v) {
             DocumentSnapshot documentSnapshot = getCurrentList().get(getAdapterPosition());
-            Event event = documentSnapshot.toObject(Event.class);
-            Toast.makeText(mContext, "OnClick on position : " + getAdapterPosition() + " \nTest : " + event.getTitre() + "\nId : " + documentSnapshot.getId(), Toast.LENGTH_LONG).show();
+            //Event event = documentSnapshot.toObject(Event.class);
+            //Toast.makeText(mContext, "OnClick on position : " + getAdapterPosition() + " \nTest : " + event.getTitre() + "\nId : " + documentSnapshot.getId(), Toast.LENGTH_LONG).show();
+            if(mFragment instanceof SwitchDocumentActivity){
+                ((SwitchDocumentActivity) mFragment).goToActivity(documentSnapshot);
+            }
         }
     }
 
@@ -49,7 +57,7 @@ public class EventFirestorePagingAdapter extends FirestorePagingAdapter<Event, E
         holder.titre.setText(model.getTitre());
         holder.sport.setText(model.getSport());
         holder.lieu.setText(model.getLieu());
-        holder.date.setText(model.getDate().toDate().toString());
+        holder.date.setText(model.getDate().toString());
     }
 
     @NonNull
