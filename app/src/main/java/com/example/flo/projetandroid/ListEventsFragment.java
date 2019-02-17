@@ -9,16 +9,11 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.firebase.ui.firestore.SnapshotParser;
-import com.firebase.ui.firestore.paging.FirestorePagingAdapter;
 import com.firebase.ui.firestore.paging.FirestorePagingOptions;
-import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -102,7 +97,7 @@ public class ListEventsFragment extends Fragment implements SwitchDocumentActivi
 
     @Override
     public void goToActivity(DocumentSnapshot documentSnapshot) {
-        Intent intent = new Intent(getContext(), EventDetailActivity.class);
+        Intent intent = new Intent(getContext(), ListEventDetailActivity.class);
         Event event = documentSnapshot.toObject(Event.class);
         intent.putExtra("event", event);
         intent.putExtra("idDocument", documentSnapshot.getId());

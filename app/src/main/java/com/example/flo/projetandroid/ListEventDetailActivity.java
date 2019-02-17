@@ -3,6 +3,7 @@ package com.example.flo.projetandroid;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -16,7 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-public class EventDetailActivity extends AppCompatActivity implements View.OnClickListener {
+public class ListEventDetailActivity extends AppCompatActivity implements View.OnClickListener {
 
     TextView mLieu, mSport, mTitre, mDate, mDateLimite;
     Button mRejoindre;
@@ -24,11 +25,17 @@ public class EventDetailActivity extends AppCompatActivity implements View.OnCli
     String mIdDocument;
     FirebaseFirestore mFirebaseFirestore;
     Boolean mUserIsInEvent;
+    Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_detail);
+
+        mToolbar = findViewById(R.id.toolbar_listevent_detail);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setTitle("Details");
+
         mFirebaseFirestore = FirebaseFirestore.getInstance();
 
         mEvent = (Event)getIntent().getSerializableExtra("event");

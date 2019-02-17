@@ -11,13 +11,18 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
 import com.firebase.ui.firestore.paging.FirestorePagingAdapter;
 import com.firebase.ui.firestore.paging.FirestorePagingOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
-public class MyEventsFragment extends Fragment {
+import java.util.Calendar;
+
+public class MyEventsFragment extends Fragment implements SwitchDocumentActivity {
 
     private OnFragmentInteractionListener mListener;
     private FirestorePagingAdapter mAdapter;
@@ -93,6 +98,15 @@ public class MyEventsFragment extends Fragment {
     public void onStop() {
         super.onStop();
         mAdapter.stopListening();
+    }
+
+    @Override
+    public void goToActivity(DocumentSnapshot documentSnapshot) {
+        Intent intent = new Intent(getContext(), MyEventDetailActivity.class);
+        Event event = documentSnapshot.toObject(Event.class);
+        intent.putExtra("event", event);
+        intent.putExtra("idDocument", documentSnapshot.getId());
+        startActivity(intent);
     }
 
     public interface OnFragmentInteractionListener {

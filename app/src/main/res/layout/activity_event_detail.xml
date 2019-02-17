@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EventDetailActivity">
+    tools:context=".ListEventDetailActivity">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar_login"
+        android:id="@+id/toolbar_listevent_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimaryCustom"
@@ -30,7 +30,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_login"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_listevent_detail"
         app:layout_constraintVertical_bias="0.035" />
 
     <TextView
@@ -46,7 +46,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_login"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_listevent_detail"
         app:layout_constraintVertical_bias="0.318" />
 
     <TextView
@@ -62,7 +62,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_login"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_listevent_detail"
         app:layout_constraintVertical_bias="0.251" />
 
     <TextView
@@ -78,7 +78,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_login"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_listevent_detail"
         app:layout_constraintVertical_bias="0.173" />
 
     <TextView
@@ -94,7 +94,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_login"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_listevent_detail"
         app:layout_constraintVertical_bias="0.384" />
 
     <TextView
@@ -110,7 +110,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_login"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_listevent_detail"
         app:layout_constraintVertical_bias="0.456" />
 
     <Button
@@ -126,7 +126,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_login"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_listevent_detail"
         app:layout_constraintVertical_bias="0.559" />
 
 </android.support.constraint.ConstraintLayout>
