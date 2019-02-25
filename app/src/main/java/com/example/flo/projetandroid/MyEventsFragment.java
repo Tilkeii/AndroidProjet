@@ -20,7 +20,9 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
+import java.time.LocalDateTime;
 import java.util.Calendar;
+import java.util.Date;
 
 public class MyEventsFragment extends Fragment implements SwitchDocumentActivity {
 
@@ -42,7 +44,9 @@ public class MyEventsFragment extends Fragment implements SwitchDocumentActivity
 
         mFirebaseFirestore = FirebaseFirestore.getInstance();
 
-        Query query = mFirebaseFirestore.collection("events").whereArrayContains("users", FirebaseAuth.getInstance().getUid());
+        Query query = mFirebaseFirestore.collection("events")
+                .whereArrayContains("users", FirebaseAuth.getInstance().getUid())
+                .whereGreaterThan("date", new Date());
 
         PagedList.Config config = new PagedList.Config.Builder()
                 .setEnablePlaceholders(false)
