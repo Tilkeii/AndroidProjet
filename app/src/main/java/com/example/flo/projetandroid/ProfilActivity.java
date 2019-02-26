@@ -28,11 +28,6 @@ public class ProfilActivity extends AppCompatActivity {
         mEmail = findViewById(R.id.lieuEventDetails);
         mTel = findViewById(R.id.dateEventDetails);
 
-        if (mAuth.getCurrentUser() != null) {
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(intent);
-        }
-
         mNom.setText(mAuth.getCurrentUser().getDisplayName());
         mPrenom.setText(mAuth.getCurrentUser().getDisplayName());
         mEmail.setText(mAuth.getCurrentUser().getEmail());
