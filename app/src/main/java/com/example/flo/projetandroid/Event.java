@@ -17,10 +17,11 @@ public class Event implements Serializable {
 
     public Event(){ } // Needed for Firebase
 
-    public Event(String id, String titre, String sport, String lieu, Date date, Date dateLimite) {
+    public Event(String titre, String sport, String lieu, List<String> users, Date date, Date dateLimite) {
         this.titre = titre;
         this.sport = sport;
         this.lieu = lieu;
+        this.users = users;
         this.date = date;
         this.dateLimite = dateLimite;
     }

@@ -64,16 +64,7 @@
             android:layout_marginBottom="10dp"
             android:ems="10"
             android:hint="Date"
-            android:inputType="date" />
-
-        <EditText
-            android:id="@+id/heure_create_event"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:ems="10"
-            android:hint="Heure"
-            android:inputType="time" />
+            android:inputType="datetime" />
 
         <EditText
             android:id="@+id/date_limite_create_event"
@@ -81,8 +72,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:ems="10"
-            android:hint="Date"
-            android:inputType="date" />
+            android:hint="Date limite"
+            android:inputType="datetime" />
 
         <LinearLayout
             android:layout_width="match_parent"
