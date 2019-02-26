@@ -38,6 +38,7 @@ public class ListEventDetailActivity extends AppCompatActivity implements View.O
 
         mFirebaseFirestore = FirebaseFirestore.getInstance();
 
+
         mEvent = (Event)getIntent().getSerializableExtra("event");
         mIdDocument = getIntent().getStringExtra("idDocument");
 

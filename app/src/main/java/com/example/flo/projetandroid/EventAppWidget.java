@@ -22,6 +22,7 @@ import java.util.Date;
 /**
  * Implementation of App Widget functionality.
  */
+
 public class EventAppWidget extends AppWidgetProvider {
 
     static void updateAppWidget(Context context, final AppWidgetManager appWidgetManager,

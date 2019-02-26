@@ -1,7 +1,6 @@
 package com.example.flo.projetandroid;
 
 import com.google.firebase.Timestamp;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
